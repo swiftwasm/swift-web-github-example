@@ -6,10 +6,10 @@ let package = Package(
     name: "GitHubExample",
     products: [
         .library(name: "GitHubExample",
-            targets: ["GitHubExample"]),
+            targets: ["GitHubExample"])
     ],
     dependencies: [
-      .package(name: "JavaScriptKit", url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .branch("master")),
+      .package(name: "JavaScriptKit", url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .branch("master"))
     ],
     targets: [
         .target(
@@ -18,6 +18,6 @@ let package = Package(
         .target(name: "GitHubExample", dependencies: []),
         .testTarget(name: "GitHubExampleTests", dependencies: [
            "GitHubExample"
-        ]),
+        ])
     ]
 )
