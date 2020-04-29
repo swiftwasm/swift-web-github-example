@@ -9,7 +9,8 @@ let package = Package(
             targets: ["GitHubExample"])
     ],
     dependencies: [
-      .package(name: "JavaScriptKit", url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .branch("master"))
+//      .package(name: "JavaScriptKit", url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .branch("master"))
+      .package(name: "JavaScriptKit", path: "../../kateinoigakukun/JavaScriptKit")
     ],
     targets: [
         .target(

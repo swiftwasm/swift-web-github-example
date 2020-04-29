@@ -18,8 +18,14 @@ class View {
             switch event {
             case .initial(let repos):
                 self.renderRepositories(repos)
+            case .error(let error):
+                self.alert("\(error)")
             }
         }
+    }
+    
+    func alert(_ message: String) {
+        _ = JSObjectRef.global.alert!(message)
     }
 
     func renderRepositories(_ repos: [Repository]) {
@@ -35,5 +41,5 @@ class View {
 let document = JSObjectRef.global.document.object!
 let githubSearchForm = document.getElementById!("github-search-form").object!
 
-let app = GitHubExampleApp(api: GitHubAPIImpl())
+let app = GitHubExampleApp(api: WebFetchSession())
 let view = View(form: githubSearchForm, app: app)
