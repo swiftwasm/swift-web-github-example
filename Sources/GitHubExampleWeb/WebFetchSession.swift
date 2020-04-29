@@ -6,7 +6,7 @@ struct MessageError: Error {
 }
 
 class WebFetchSession: SessionType {
-    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R : GitHubAPIRequest {
+    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
         let url = request.baseURL + request.path + request.queryParameters.reduce("?") {
             $0 + "\($1.key)=\($1.value)"
         }
@@ -30,4 +30,3 @@ class WebFetchSession: SessionType {
             }
     }
 }
-
