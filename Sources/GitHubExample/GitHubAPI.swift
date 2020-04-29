@@ -1,4 +1,4 @@
-public protocol SessionType {
+public protocol NetworkSession {
     func get<R: GitHubAPIRequest>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void)
 }
 

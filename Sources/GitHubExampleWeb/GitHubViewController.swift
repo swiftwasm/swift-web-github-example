@@ -25,5 +25,6 @@ class GitHubViewController {
                 alert("\(error)")
             }
         }
+        app.search(query: "Swift")
     }
 }

@@ -5,10 +5,10 @@ public class GitHubExampleApp {
         case error(Error)
     }
 
-    let api: SessionType
+    let networkSession: NetworkSession
     var handlers: [(Event) -> Void] = []
-    public init(api: SessionType) {
-        self.api = api
+    public init(networkSession: NetworkSession) {
+        self.networkSession = networkSession
     }
 
     public func subscribe(_ handler: @escaping (Event) -> Void) {
@@ -17,7 +17,7 @@ public class GitHubExampleApp {
 
     public func search(query: String) {
         let request = GitHubSearchRepositoryRequest(query: query)
-        api.get(request) { result in
+        networkSession.get(request) { result in
             let event: Event
             switch result {
             case .success(let response):

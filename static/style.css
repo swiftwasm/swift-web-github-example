@@ -1,0 +1,33 @@
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+#github-search-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+#github-search-form > input[type=text] {
+    line-height: 20px;
+    width: 80%;
+}
+
+.github-repository {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #e1e4e8;
+    padding: 16px;
+}
+
+.github-repository-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+
+.github-thumb {
+    width: 80px;
+    height: 80px;
+}
