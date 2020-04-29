@@ -1,23 +1,30 @@
-# swift-webpack-template
+# GitHubExample
 
-Kickstart your Swift, WebAssembly and Webpack project.
+A description of this project.
 
-[Let's create your project](https://github.com/swiftwasm/swift-webpack-template/generate)
+## Requirements
 
-After cloning the project, please execute `./init-project.sh` to setup repository.
+This project only supports [`swiftwasm/swift`](https://github.com/swiftwasm/swift) distribution toolchain. Please install Swift for WebAssembly toolchain from [Release Page](https://github.com/swiftwasm/swift/releases)
+
+The toolchains can be installed via [`swiftenv`](https://github.com/kylef/swiftenv).
 
 ```sh
-$ git clone https://github.com/your-account/YourNewProject.git
-$ cd YourNewProject
-$ ./init-project.sh
-Creating new project 'YourNewProject'
-Removing this script itself
-Adding init commit
-[master 5193e27] Init 'YourNewProject'
- 11 files changed, 22 insertions(+), 55 deletions(-)
- rename Sources/{__PROJECT_NAME__/__PROJECT_NAME__.swift => YourNewProject/YourNewProject.swift} (75%)
- create mode 100644 Sources/YourNewProjectWeb/main.swift
- delete mode 100644 Sources/__PROJECT_NAME__Web/main.swift
- rename Tests/{__PROJECT_NAME__Tests/__PROJECT_NAME__Tests.swift => YourNewProjectTests/YourNewProjectTests.swift} (56%)
- delete mode 100755 init-project.sh
- ```
+$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-03-08-a/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a-osx.tar.gz
+$ swiftenv local wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a
+$ swift --version
+Swift version 5.2-dev (LLVM 7fc8796bc1, Swift 5be35e7aee)
+Target: x86_64-apple-darwin19.3.0
+```
+
+## Getting Started
+
+```sh
+npm install
+npm run start
+```
+
+## Testing
+
+```sh
+swift test
+```

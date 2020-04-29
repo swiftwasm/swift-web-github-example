@@ -1,4 +1,4 @@
-public class __PROJECT_NAME__ {
+public class GitHubExample {
     public init() {}
 
     public func greeting() -> String {

@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new SwiftWebpackPlugin({
       packageDirectory: __dirname,
-      target: '__PROJECT_NAME__Web',
+      target: 'GitHubExampleWeb',
       dist: outputPath
     }),
     new HtmlWebpackPlugin({

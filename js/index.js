@@ -31,7 +31,7 @@ const startWasiTask = async () => {
     }
   });
 
-  const response = await fetch("__PROJECT_NAME__Web.wasm");
+  const response = await fetch("GitHubExampleWeb.wasm");
   const importObject = {
     wasi_snapshot_preview1: wasi.wasiImport,
     javascript_kit: swift.importObjects(),

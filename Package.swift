@@ -3,21 +3,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "__PROJECT_NAME__",
+    name: "GitHubExample",
     products: [
-        .library(name: "__PROJECT_NAME__",
-            targets: ["__PROJECT_NAME__"]),
+        .library(name: "GitHubExample",
+            targets: ["GitHubExample"]),
     ],
     dependencies: [
       .package(name: "JavaScriptKit", url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .branch("master")),
     ],
     targets: [
         .target(
-            name: "__PROJECT_NAME__Web",
-            dependencies: ["__PROJECT_NAME__", "JavaScriptKit"]),
-        .target(name: "__PROJECT_NAME__", dependencies: []),
-        .testTarget(name: "__PROJECT_NAME__Tests", dependencies: [
-           "__PROJECT_NAME__"
+            name: "GitHubExampleWeb",
+            dependencies: ["GitHubExample", "JavaScriptKit"]),
+        .target(name: "GitHubExample", dependencies: []),
+        .testTarget(name: "GitHubExampleTests", dependencies: [
+           "GitHubExample"
         ]),
     ]
 )
