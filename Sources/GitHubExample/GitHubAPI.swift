@@ -19,6 +19,9 @@ extension GitHubAPIRequest {
 public struct GitHubSearchRepositoryRequest: GitHubAPIRequest {
     public struct Response: Codable {
         let items: [Repository]
+        public init(items: [Repository]) {
+            self.items = items
+        }
     }
 
     public var path: String { "search/repositories" }
