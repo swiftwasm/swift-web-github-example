@@ -3,7 +3,7 @@
   "dependencies": {
     "@wasmer/wasi": "^0.9.1",
     "@wasmer/wasmfs": "^0.9.1",
-    "javascript-kit-swift": "0.1.0"
+    "javascript-kit-swift": "0.2.0"
   },
   "devDependencies": {
     "@swiftwasm/swift-webpack-plugin": "1.0.2",

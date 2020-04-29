@@ -15,10 +15,14 @@ class WebFetchSession: SessionType {
                 response.object!.json!()
             }
             .then { json in
-                let response = try! JSDecoder().decode(
-                    R.Response.self, from: json
-                )
-                callback(.success(response))
+                do {
+                    let response = try JSValueDecoder().decode(
+                        R.Response.self, from: json
+                    )
+                    callback(.success(response))
+                } catch {
+                    callback(.failure(error))
+                }
                 return .undefined
             }
             .catch { error in
