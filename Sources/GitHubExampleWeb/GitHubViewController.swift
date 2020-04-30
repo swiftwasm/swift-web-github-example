@@ -35,6 +35,7 @@ class GitHubViewController {
             }
         }
 
-        app.search(query: "Swift")
+        // Search default query
+        app.search(query: view.queryString())
     }
 }
