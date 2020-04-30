@@ -41,7 +41,15 @@ const startWasiTask = async () => {
     javascript_kit: swift.importObjects(),
   };
 
-  const { instance } = await WebAssembly.instantiateStreaming(response, importObject);
+  const { instance } = await (async () => {
+    if (WebAssembly.instantiateStreaming) {
+      return await WebAssembly.instantiateStreaming(response, importObject);
+    } else {
+      const responseArrayBuffer = await response.arrayBuffer();
+      const wasmBytes = new Uint8Array(responseArrayBuffer).buffer;
+      return await WebAssembly.instantiate(wasmBytes, importObject);
+    }
+  })();
 
   swift.setInsance(instance);
   wasi.start(instance);
