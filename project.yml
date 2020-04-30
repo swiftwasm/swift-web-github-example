@@ -1,0 +1,16 @@
+name: GitHubExampleiOS
+options:
+  bundleIdPrefix: org.swiftwasm
+targets:
+  GitHubExampleiOS:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/GitHubExampleiOS
+    dependencies:
+      - target: GitHubExample
+  GitHubExample:
+    type: library.static 
+    platform: iOS
+    sources:
+      - Sources/GitHubExample
