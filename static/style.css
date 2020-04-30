@@ -31,3 +31,13 @@ a {
     width: 80px;
     height: 80px;
 }
+
+.loading-icon {
+    margin-left: auto;
+    margin-right: auto;
+    width: 32px;
+    height: 32px;
+    animation:spin 0.7s linear infinite;
+}
+
+@keyframes spin { 100% { transform:rotate(360deg); } }

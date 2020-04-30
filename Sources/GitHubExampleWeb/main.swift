@@ -1,6 +1,7 @@
 import GitHubExample
 import JavaScriptKit
 
+let window = WebDocumentObject(JSObjectRef.global)
 let document = WebDocument(JSObjectRef.global.document.object!)
 #if DEBUG
 let session = NetworkMock()
@@ -10,8 +11,10 @@ let session = WebFetchSession()
 let app = GitHubExampleApp(networkSession: session)
 
 let view = GitHubView(
+    body: document.body,
     searchForm: document.getElementById("github-search-form"),
-    repositoryList: document.getElementById("github-repository-list")
+    repositoryList: document.getElementById("github-repository-list"),
+    loadMoreTag: document.getElementById("github-load-more")
 )
 
 let viewController = GitHubViewController(view: view, app: app)

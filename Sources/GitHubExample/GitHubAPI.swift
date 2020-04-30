@@ -27,7 +27,18 @@ public struct GitHubSearchRepositoryRequest: GitHubAPIRequest {
     public var path: String { "search/repositories" }
     public let queryParameters: [String: String]
 
-    public init(query: String) {
-        queryParameters = ["q": query]
+    let query: String
+    let page: Int
+
+    public init(query: String, page: Int) {
+        self.queryParameters = ["q": query, "page": page.description]
+        self.query = query
+        self.page = page
+    }
+}
+
+extension GitHubSearchRepositoryRequest: PaginationRequest {
+    func next(from response: Response) -> GitHubSearchRepositoryRequest? {
+        return response.items.isEmpty ? nil : GitHubSearchRepositoryRequest(query: query, page: page + 1)
     }
 }
