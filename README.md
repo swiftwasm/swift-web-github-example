@@ -1,6 +1,8 @@
-# GitHubExample
+# GitHub Search 🔍
 
-A description of this project.
+Demo project of Swift on Web App
+
+https://swift-web-github-example.netlify.app/
 
 ## Requirements
 
@@ -27,4 +29,12 @@ npm run start
 
 ```sh
 swift test
+```
+
+## Development Tips
+
+You can edit source code and run test case on Xcode
+
+```sh
+swift package generate-xcodeproj
 ```
