@@ -1,6 +1,6 @@
 const path = require('path');
 const Watchpack = require('watchpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const SwiftWebpackPlugin = require('@swiftwasm/swift-webpack-plugin')
 
 const outputPath = path.resolve(__dirname, 'dist');
@@ -16,10 +16,7 @@ module.exports = {
   devServer: {
     inline: true,
     watchContentBase: true,
-    contentBase: [
-      staticPath,
-      outputPath,
-    ],
+    contentBase: [outputPath],
   },
   plugins: [
     new SwiftWebpackPlugin({
@@ -27,8 +24,6 @@ module.exports = {
       target: 'GitHubExampleWeb',
       dist: outputPath
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(staticPath, 'index.html'),
-    }),
+    new CopyPlugin([staticPath]),
   ],
 };
