@@ -1,7 +1,7 @@
 public struct Repository: Codable {
     public let id: Int
     public let fullName: String
-    public let description: String
+    public let description: String?
     public let htmlURL: String
     public let owner: User
 

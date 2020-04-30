@@ -3,6 +3,10 @@ import { WASI } from "@wasmer/wasi";
 import { WasmFs } from "@wasmer/wasmfs";
 
 
+global._triggerDebugger = () => {
+    debugger
+};
+
 const startWasiTask = async () => {
 
   const swift = new SwiftRuntime();

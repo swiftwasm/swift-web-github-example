@@ -8,7 +8,7 @@ struct MessageError: Error {
 class WebFetchSession: NetworkSession {
     func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
         let url = request.baseURL + request.path + request.queryParameters.reduce("?") {
-            $0 + "\($1.key)=\($1.value)"
+            $0 + ($0 == "?" ? "" : "&") + "\($1.key)=\($1.value)"
         }
         _ = fetch(url)
             .then { response in
@@ -59,7 +59,9 @@ class NetworkMock: NetworkSession {
 
     func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
         let response = responseMaps.first(where: { $0.requestType == R.self })!._response as! R.Response
-        callback(.success(response))
+        _ = setTimeout({
+            callback(.success(response))
+        }, delay: 1000)
     }
 }
 #endif

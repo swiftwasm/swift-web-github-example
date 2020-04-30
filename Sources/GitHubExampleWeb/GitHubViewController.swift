@@ -4,12 +4,21 @@ import JavaScriptKit
 class GitHubViewController {
 
     let view: GitHubView
+    let observer: WebIntersectionObserver
 
     init(
         view: GitHubView,
         app: GitHubExampleApp
     ) {
         self.view = view
+        self.observer = WebIntersectionObserver { entries in
+            guard let entry = entries.first, entry.isIntersecting else {
+                return
+            }
+            app.nextPage()
+        }
+
+        self.observer.observe(view.loadMoreTag)
 
         view.searchForm.addEventListener("submit") { event in
             event.preventDefault()
@@ -19,12 +28,13 @@ class GitHubViewController {
 
         app.subscribe { (event) in
             switch event {
-            case .initial(let repos):
+            case .repositories(let repos):
                 view.setRepositories(repos)
             case .error(let error):
                 alert("\(error)")
             }
         }
+
         app.search(query: "Swift")
     }
 }
