@@ -1,0 +1,15 @@
+name: Build and distribute
+on: [push, pull_request]
+jobs:
+  test:
+    name: Build and distribute
+    runs-on: macOS-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build
+        run: .ci/build.sh
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
