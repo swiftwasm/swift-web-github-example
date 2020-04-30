@@ -1,3 +1,4 @@
+#!/bin/bash
 set -ex
 
 TOOLCHAIN_NAME="$(cat .swift-version)"
@@ -8,9 +9,6 @@ export SWIFTENV_ROOT="$HOME/.swiftenv"
 export PATH="$SWIFTENV_ROOT/bin:$PATH"
 eval "$(swiftenv init -)"
 swiftenv install $TOOLCHAIN_DOWNLOAD
-
-apt-get install gcc-4.9
-apt-get upgrade libstdc++6
 
 npm install
 npm run build:prod
