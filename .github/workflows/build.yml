@@ -1,8 +1,8 @@
-name: Build and distribute
+name: Build and test
 on: [push, pull_request]
 jobs:
-  test:
-    name: Build and distribute
+  build:
+    name: Build
     runs-on: macOS-10.15
     steps:
       - name: Checkout
@@ -13,3 +13,11 @@ jobs:
         with:
           name: dist
           path: dist
+  test:
+    name: Run test
+    runs-on: macOS-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build
+        run: .ci/test.sh

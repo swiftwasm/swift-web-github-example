@@ -6,5 +6,4 @@ cd $SOURCE_PATH
 
 source $SOURCE_PATH/.ci/install-swift.sh
 
-npm install
-npm run build:prod
+swift test
