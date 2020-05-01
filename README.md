@@ -11,7 +11,7 @@ This project only supports [`swiftwasm/swift`](https://github.com/swiftwasm/swif
 The toolchains can be installed via [`swiftenv`](https://github.com/kylef/swiftenv).
 
 ```sh
-$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-03-08-a/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a-osx.tar.gz
+$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a-osx.tar.gz
 $ swiftenv local wasm-DEVELOPMENT-SNAPSHOT-2020-04-27-a
 $ swift --version
 Swift version 5.2-dev (LLVM 7fc8796bc1, Swift 5be35e7aee)
