@@ -31,6 +31,16 @@ npm run start
 swift test
 ```
 
+## iOS App
+
+[XcodeGen](https://github.com/yonaskolb/XcodeGen/) is required to make `.xcodeproj`
+
+```sh
+$ xcodegen
+$ open GitHubExampleiOS.xcodeproj
+```
+
+
 ## Development Tips
 
 You can edit source code and run test case on Xcode
