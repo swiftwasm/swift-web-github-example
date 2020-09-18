@@ -1,8 +1,8 @@
 {
   "name": "GitHubExample",
   "dependencies": {
-    "@wasmer/wasi": "^0.9.1",
-    "@wasmer/wasmfs": "^0.9.1",
+    "@wasmer/wasi": "^0.12.0",
+    "@wasmer/wasmfs": "^0.12.0",
     "javascript-kit-swift": "0.2.0"
   },
   "devDependencies": {
