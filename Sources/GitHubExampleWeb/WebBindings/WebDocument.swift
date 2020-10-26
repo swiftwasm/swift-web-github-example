@@ -2,7 +2,7 @@ import JavaScriptKit
 
 @dynamicMemberLookup
 class JSObjectProxyBase: ConvertibleToJSValue {
-    var ref: JSObject
+    var ref: JSObject!
     init(_ ref: JSObject) {
         self.ref = ref
     }
@@ -70,12 +70,21 @@ class WebDocumentObject: JSObjectProxyBase {
         WebDocumentObject(ref.appendChild!(child).object!)
     }
 
+    private var subscriptions: [(event: String, listener: JSClosure)] = []
     func addEventListener(_ eventType: String, listener: @escaping (WebDocumentEvent) -> Void) {
-        _ = ref.addEventListener!(eventType, JSValue.function { args in
+        let listener = JSClosure { args -> JSValue in
             let event = WebDocumentEvent(args[0].object!)
             listener(event)
             return .undefined
-        })
+        }
+        subscriptions.append((event: eventType, listener: listener))
+        _ = ref.addEventListener!(eventType, listener)
+    }
+
+    deinit {
+        for (event, listener) in subscriptions {
+            _ = ref.removeEventListener!(event, listener)
+        }
     }
 }
 
@@ -86,15 +95,24 @@ class WebIntersectionObserver: JSObjectProxyBase {
         let isIntersecting: Bool
     }
 
+    let jsClosure: JSClosure
     init(_ callback: @escaping ([Entry]) -> Void) {
-        super.init(Self.ref.new(JSValue.function { args in
+        jsClosure = JSClosure { args -> JSValue in
             let entries: [Entry] = try! JSValueDecoder().decode(from: args[0])
             callback(entries)
             return .undefined
-        }))
+        }
+        super.init(Self.ref.new(jsClosure))
     }
 
     func observe(_ target: WebDocumentObject) {
         _ = ref.observe!(target)
+    }
+
+    deinit {
+        // Release JSClosure **after** releasing IntersectionObserver
+        // to avoid use-after-free
+        ref = nil
+        jsClosure.release()
     }
 }

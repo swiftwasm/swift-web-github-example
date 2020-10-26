@@ -22,18 +22,3 @@ enum WebDevTool {
     }
 }
 
-struct WebTimeoutID: ConvertibleToJSValue {
-    let ref: JSValue
-    fileprivate init(_ ref: JSValue) {
-        self.ref = ref
-    }
-    func jsValue() -> JSValue { ref }
-}
-
-func setTimeout(_ function: @escaping () -> Void, delay: Double) -> WebTimeoutID {
-    let ref = JSObject.global.setTimeout!(JSValue.function { _ in
-        function()
-        return .undefined
-    }, JSValue.number(delay))
-    return WebTimeoutID(ref)
-}

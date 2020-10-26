@@ -10,11 +10,11 @@ class WebFetchSession: NetworkSession {
         let url = request.baseURL + request.path + request.queryParameters.reduce("?") {
             $0 + ($0 == "?" ? "" : "&") + "\($1.key)=\($1.value)"
         }
-        _ = fetch(url)
+        fetch(url)
             .then { response in
                 response.object!.json!()
             }
-            .then { json in
+            .then { json -> JSValue in
                 do {
                     let response = try JSValueDecoder().decode(
                         R.Response.self, from: json
@@ -26,7 +26,7 @@ class WebFetchSession: NetworkSession {
                 return .undefined
             }
             .catch { error in
-                callback(.failure(MessageError(message: error.object!.message.string!)))
+                callback(.failure(MessageError(message: error.message)))
             }
     }
 }
@@ -57,11 +57,12 @@ class NetworkMock: NetworkSession {
         )
     ]
 
+    private var timer: JSTimer?
     func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
         let response = responseMaps.first(where: { $0.requestType == R.self })!._response as! R.Response
-        _ = setTimeout({
+        timer = JSTimer(millisecondsDelay: 1000) {
             callback(.success(response))
-        }, delay: 1000)
+        }
     }
 }
 #endif
