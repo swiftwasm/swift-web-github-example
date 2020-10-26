@@ -1,5 +1,6 @@
+public protocol Task: AnyObject {}
 public protocol NetworkSession {
-    func get<R: GitHubAPIRequest>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void)
+    func get<R: GitHubAPIRequest>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) -> Task
 }
 
 public protocol GitHubAPIRequest {

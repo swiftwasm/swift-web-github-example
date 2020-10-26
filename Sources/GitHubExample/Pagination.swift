@@ -17,6 +17,7 @@ class Pagination<R: PaginationRequest> {
     private var currentRequest: R?
     private let networkSession: NetworkSession
     private var subscribers: [(Event) -> Void] = []
+    private var task: Task?
 
     init(networkSession: NetworkSession) {
         self.networkSession = networkSession
@@ -42,7 +43,7 @@ class Pagination<R: PaginationRequest> {
             return
         }
         isLoading = true
-        networkSession.get(currentRequest) { [weak self] result in
+        task = networkSession.get(currentRequest) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):

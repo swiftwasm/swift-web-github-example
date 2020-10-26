@@ -1,8 +1,10 @@
 import GitHubExample
 import Foundation
 
+extension URLSessionTask: Task {}
+
 class NativeNetworkSession: NetworkSession {
-    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
+    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) -> Task where R: GitHubAPIRequest {
         let url = URL(string: request.baseURL + request.path + request.queryParameters.reduce("?") {
             $0 + ($0 == "?" ? "" : "&") + "\($1.key)=\($1.value)"
         })!
@@ -19,5 +21,6 @@ class NativeNetworkSession: NetworkSession {
             }
         }
         task.resume()
+        return task
     }
 }

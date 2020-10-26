@@ -5,12 +5,14 @@ struct MessageError: Error {
     let message: String
 }
 
+extension JSPromise: Task {}
+
 class WebFetchSession: NetworkSession {
-    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
+    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) -> Task where R: GitHubAPIRequest {
         let url = request.baseURL + request.path + request.queryParameters.reduce("?") {
             $0 + ($0 == "?" ? "" : "&") + "\($1.key)=\($1.value)"
         }
-        fetch(url)
+        let promise = fetch(url)
             .then { response in
                 response.object!.json!()
             }
@@ -25,9 +27,11 @@ class WebFetchSession: NetworkSession {
                 }
                 return .undefined
             }
-            .catch { error -> Void in
+            .catch { error -> JSValue in
                 callback(.failure(MessageError(message: error.message)))
+                return JSValue.undefined
             }
+        return promise
     }
 }
 
@@ -44,6 +48,8 @@ struct ResponseMap<T: GitHubAPIRequest>: ResponseMapBase {
     var _response: Any { return response }
 }
 
+extension JSTimer: Task {}
+
 class NetworkMock: NetworkSession {
 
     static func decode<T: Decodable>(json: String) -> T {
@@ -57,10 +63,9 @@ class NetworkMock: NetworkSession {
         )
     ]
 
-    private var timer: JSTimer?
-    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
+    func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) -> Task where R: GitHubAPIRequest {
         let response = responseMaps.first(where: { $0.requestType == R.self })!._response as! R.Response
-        timer = JSTimer(millisecondsDelay: 1000) {
+        return JSTimer(millisecondsDelay: 1000) {
             callback(.success(response))
         }
     }
