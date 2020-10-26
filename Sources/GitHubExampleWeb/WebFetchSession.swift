@@ -25,7 +25,7 @@ class WebFetchSession: NetworkSession {
                 }
                 return .undefined
             }
-            .catch { error in
+            .catch { error -> Void in
                 callback(.failure(MessageError(message: error.message)))
             }
     }
