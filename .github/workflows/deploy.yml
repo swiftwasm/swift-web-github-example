@@ -1,0 +1,17 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: macOS-latest
+    name: Deploy artifacts
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: .ci/build.sh
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
