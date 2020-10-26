@@ -1,7 +1,7 @@
 import JavaScriptKit
 
-public class Promise: JSValueConvertible {
-    let ref: JSObjectRef
+public class Promise: ConvertibleToJSValue {
+    let ref: JSObject
     public init?(_ value: JSValue) {
         guard let ref = value.object else {
             return nil

@@ -1,7 +1,7 @@
 import JavaScriptKit
 
 class WebJSON {
-    static let ref = JSObjectRef.global.get("JSON").object!
+    static let ref = JSObject.global.JSON.object!
     static func stringify(_ object: JSValue) -> String {
         ref.stringify!(object).string!
     }

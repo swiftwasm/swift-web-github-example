@@ -1,7 +1,7 @@
 import JavaScriptKit
 
 func alert(_ message: String) {
-    _ = JSObjectRef.global.alert!(message)
+    _ = JSObject.global.alert!(message)
 }
 
 class WebConsole: JSObjectProxyBase {
@@ -14,15 +14,15 @@ class WebConsole: JSObjectProxyBase {
     }
 }
 
-let console = WebConsole(JSObjectRef.global.get("console").object!)
+let console = WebConsole(JSObject.global.console.object!)
 
 enum WebDevTool {
     static func debugger() {
-        _ = JSObjectRef.global._triggerDebugger!()
+        _ = JSObject.global._triggerDebugger!()
     }
 }
 
-struct WebTimeoutID: JSValueConvertible {
+struct WebTimeoutID: ConvertibleToJSValue {
     let ref: JSValue
     fileprivate init(_ ref: JSValue) {
         self.ref = ref
@@ -31,7 +31,7 @@ struct WebTimeoutID: JSValueConvertible {
 }
 
 func setTimeout(_ function: @escaping () -> Void, delay: Double) -> WebTimeoutID {
-    let ref = JSObjectRef.global.setTimeout!(JSValue.function { _ in
+    let ref = JSObject.global.setTimeout!(JSValue.function { _ in
         function()
         return .undefined
     }, JSValue.number(delay))

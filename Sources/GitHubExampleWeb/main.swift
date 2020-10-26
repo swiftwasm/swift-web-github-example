@@ -1,8 +1,8 @@
 import GitHubExample
 import JavaScriptKit
 
-let window = WebDocumentObject(JSObjectRef.global)
-let document = WebDocument(JSObjectRef.global.document.object!)
+let window = WebDocumentObject(JSObject.global)
+let document = WebDocument(JSObject.global.document.object!)
 #if DEBUG
 let session = NetworkMock()
 #else

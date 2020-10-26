@@ -1,9 +1,9 @@
 import JavaScriptKit
 
 @dynamicMemberLookup
-class JSObjectProxyBase: JSValueConvertible {
-    var ref: JSObjectRef
-    init(_ ref: JSObjectRef) {
+class JSObjectProxyBase: ConvertibleToJSValue {
+    var ref: JSObject
+    init(_ ref: JSObject) {
         self.ref = ref
     }
     func jsValue() -> JSValue {
@@ -12,7 +12,7 @@ class JSObjectProxyBase: JSValueConvertible {
 }
 
 extension JSObjectProxyBase {
-    subscript(dynamicMember name: String) -> ((JSValueConvertible...) -> JSValue)? {
+    subscript(dynamicMember name: String) -> ((ConvertibleToJSValue...) -> JSValue)? {
         return ref[dynamicMember: name]
     }
     subscript(dynamicMember name: String) -> JSValue {
@@ -24,16 +24,16 @@ extension JSObjectProxyBase {
         set { ref[index] = newValue }
     }
 
-    func get(_ name: String) -> JSValue { ref.get(name) }
-    func set(_ name: String, _ value: JSValue) { ref.set(name, value)}
-    func get(_ index: Int) -> JSValue { ref.get(index) }
-    func set(_ index: Int, _ value: JSValue) { ref.set(index, value) }
+    func get(_ name: String) -> JSValue { ref[name] }
+    func set(_ name: String, _ value: JSValue) { ref[name] = value }
+    func get(_ index: Int) -> JSValue { ref[index] }
+    func set(_ index: Int, _ value: JSValue) { ref[index] = value }
 }
 
 class WebDocumentEvent {
-    private let ref: JSObjectRef
+    private let ref: JSObject
 
-    init(_ ref: JSObjectRef) {
+    init(_ ref: JSObject) {
         self.ref = ref
     }
 
@@ -56,13 +56,13 @@ class WebDocument: JSObjectProxyBase {
 class WebDocumentObject: JSObjectProxyBase {
 
     var innerHTML: String {
-        get { ref.get(#function).string! }
-        set { ref.set(#function, .string(newValue)) }
+        get { ref[#function].string! }
+        set { ref[#function] = .string(newValue) }
     }
 
     var innerText: String {
-        get { ref.get(#function).string! }
-        set { ref.set(#function, .string(newValue)) }
+        get { ref[#function].string! }
+        set { ref[#function] = .string(newValue) }
     }
 
     @discardableResult
@@ -80,7 +80,7 @@ class WebDocumentObject: JSObjectProxyBase {
 }
 
 class WebIntersectionObserver: JSObjectProxyBase {
-    static let ref = JSObjectRef.global.IntersectionObserver.function!
+    static let ref = JSObject.global.IntersectionObserver.function!
 
     struct Entry: Codable {
         let isIntersecting: Bool
