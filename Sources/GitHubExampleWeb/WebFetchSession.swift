@@ -5,6 +5,9 @@ struct MessageError: Error {
     let message: String
 }
 
+class PromiseBag: Task {
+    var promises: [AnyObject] = []
+}
 extension JSPromise: Task {}
 
 class WebFetchSession: NetworkSession {
@@ -12,26 +15,29 @@ class WebFetchSession: NetworkSession {
         let url = request.baseURL + request.path + request.queryParameters.reduce("?") {
             $0 + ($0 == "?" ? "" : "&") + "\($1.key)=\($1.value)"
         }
-        let promise = fetch(url)
-            .then { response in
-                response.object!.json!()
+
+        let bag = PromiseBag()
+        let fetchPromise = fetch(url)
+        let jsonfyPromise = fetchPromise.then { response in
+            response.object!.json!()
+        }
+        let decodePromise = jsonfyPromise.then { json -> JSValue in
+            do {
+                let response = try JSValueDecoder().decode(
+                    R.Response.self, from: json
+                )
+                callback(.success(response))
+            } catch {
+                callback(.failure(error))
             }
-            .then { json -> JSValue in
-                do {
-                    let response = try JSValueDecoder().decode(
-                        R.Response.self, from: json
-                    )
-                    callback(.success(response))
-                } catch {
-                    callback(.failure(error))
-                }
-                return .undefined
-            }
-            .catch { error -> JSValue in
-                callback(.failure(MessageError(message: error.message)))
-                return JSValue.undefined
-            }
-        return promise
+            return .undefined
+        }
+        let catchPromise = decodePromise.catch { error -> JSValue in
+            callback(.failure(MessageError(message: error.message)))
+            return JSValue.undefined
+        }
+        bag.promises = [fetchPromise, jsonfyPromise, decodePromise, catchPromise]
+        return bag
     }
 }
 
