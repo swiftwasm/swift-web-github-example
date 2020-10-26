@@ -51,7 +51,7 @@ const startWasiTask = async () => {
     }
   })();
 
-  swift.setInsance(instance);
+  swift.setInstance(instance);
   wasi.start(instance);
 };
 
