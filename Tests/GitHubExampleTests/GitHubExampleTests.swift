@@ -15,6 +15,7 @@ class GitHubExampleTests: XCTestCase {
             }
         }
         class NetworkMock: NetworkSession {
+            class NopTask: Task {}
             var requests: [RequestMock] = []
             var pendingCallbacks: [() -> Void] = []
 
@@ -22,10 +23,11 @@ class GitHubExampleTests: XCTestCase {
                 pendingCallbacks.removeFirst()()
             }
 
-            func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) where R: GitHubAPIRequest {
+            func get<R>(_ request: R, _ callback: @escaping (Result<R.Response, Error>) -> Void) -> Task where R: GitHubAPIRequest {
                 assert(request is RequestMock)
                 requests.append(request as! RequestMock)
                 pendingCallbacks.append { callback(.success(Int(0) as! R.Response)) }
+                return NopTask()
             }
         }
         let networkMock = NetworkMock()
