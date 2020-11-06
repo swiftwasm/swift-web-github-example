@@ -14,10 +14,10 @@ The toolchains can be installed via [`swiftenv`](https://github.com/kylef/swifte
 
 ```sh
 
-$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-05-10-a/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-05-10-a-osx.tar.gz
+$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-5.3.0-RELEASE/swift-wasm-5.3.0-RELEASE-macos_x86_64.pkg
 $ swift --version
-Swift version 5.3-dev (LLVM 47c28180d7, Swift 5f96d487e0)
-Target: x86_64-apple-darwin19.3.0
+SwiftWasm Swift version 5.3 (swiftlang-5.3.0)
+Target: x86_64-apple-darwin19.6.0
 ```
 
 ## Getting Started
