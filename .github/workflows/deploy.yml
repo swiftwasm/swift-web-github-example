@@ -4,14 +4,17 @@ on:
     branches: [main]
 jobs:
   deploy:
-    runs-on: macOS-latest
-    name: Deploy artifacts
+    name: Build and Upload artifact
+    runs-on: Ubuntu-18.04
+    container:
+      image: ghcr.io/swiftwasm/swift:5.3
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: .ci/build.sh
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      - uses: actions/checkout@v2
+      - run: apt update && apt install nodejs npm -y
+      - name: Build
+        run: npm install && npm run build:prod
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
