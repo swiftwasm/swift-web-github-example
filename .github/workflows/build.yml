@@ -1,23 +1,30 @@
-name: Build and test
-on: [push, pull_request]
+name: Run unit tests
+on:
+  pull_request:
+  push:
+    branches: [main]
 jobs:
+  test_on_wasm:
+    name: Build and Test on WebAssembly
+    container:
+      image: ghcr.io/swiftwasm/swift:5.3
+    steps:
+      - uses: actions/checkout@v2
+      - run: carton test
+  test_on_native:
+    name: Run test
+    runs-on: macOS-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - run: swift test
   build:
     name: Build
     runs-on: macOS-10.15
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Build
-        run: .ci/build.sh
+        run: npm ci && npm run build:prod
       - uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
-  test:
-    name: Run test
-    runs-on: macOS-10.15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Build
-        run: .ci/test.sh
