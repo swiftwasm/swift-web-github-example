@@ -8,7 +8,7 @@ jobs:
     name: Build and Test on WebAssembly
     runs-on: Ubuntu-18.04
     container:
-      image: ghcr.io/swiftwasm/swift:5.3
+      image: ghcr.io/swiftwasm/carton:latest
     steps:
       - uses: actions/checkout@v2
       - run: carton test
