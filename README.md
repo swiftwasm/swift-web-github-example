@@ -2,7 +2,7 @@
 
 Demo project of Swift on Web App
 
-https://swift-web-github-example.netlify.app/
+https://swiftwasm.github.io/swift-web-github-example/
 
 <img src="https://gist.githubusercontent.com/kateinoigakukun/a429575332b610c68207421c4235369d/raw/e723adeed6ffbac8b48454cd3c048c28991d7a32/demo.png" width="80%" />
 
