@@ -25,6 +25,7 @@ jobs:
       image: ghcr.io/swiftwasm/swift:5.3
     steps:
       - uses: actions/checkout@v2
+      - run: apt update && apt install nodejs npm -y
       - name: Build
         run: npm ci && npm run build:prod
       - uses: actions/upload-artifact@v2
