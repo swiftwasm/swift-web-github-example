@@ -8,17 +8,8 @@ https://swift-web-github-example.netlify.app/
 
 ## Requirements
 
-This project only supports [`swiftwasm/swift`](https://github.com/swiftwasm/swift) distribution toolchain. Please install Swift for WebAssembly toolchain from [Release Page](https://github.com/swiftwasm/swift/releases)
-
-The toolchains can be installed via [`swiftenv`](https://github.com/kylef/swiftenv).
-
-```sh
-
-$ swiftenv install https://github.com/swiftwasm/swift/releases/download/swift-wasm-5.3.0-RELEASE/swift-wasm-5.3.0-RELEASE-macos_x86_64.pkg
-$ swift --version
-SwiftWasm Swift version 5.3 (swiftlang-5.3.0)
-Target: x86_64-apple-darwin19.6.0
-```
+This project only supports [`swiftwasm/swift`](https://github.com/swiftwasm/swift) distribution toolchain.
+Please install Swift for WebAssembly toolchain using [Installation instruction](https://book.swiftwasm.org/getting-started/setup.html)
 
 ## Getting Started
 
