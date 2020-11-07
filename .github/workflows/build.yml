@@ -20,7 +20,9 @@ jobs:
       - run: swift test
   build:
     name: Build and Upload artifact
-    runs-on: macOS-10.15
+    runs-on: Ubuntu-18.04
+    container:
+      image: ghcr.io/swiftwasm/swift:5.3
     steps:
       - uses: actions/checkout@v2
       - name: Build
