@@ -6,19 +6,20 @@ on:
 jobs:
   test_on_wasm:
     name: Build and Test on WebAssembly
+    runs-on: Ubuntu-18.04
     container:
       image: ghcr.io/swiftwasm/swift:5.3
     steps:
       - uses: actions/checkout@v2
       - run: carton test
   test_on_native:
-    name: Run test
+    name: Build and Test on Native
     runs-on: macOS-10.15
     steps:
       - uses: actions/checkout@v2
       - run: swift test
   build:
-    name: Build
+    name: Build and Upload artifact
     runs-on: macOS-10.15
     steps:
       - uses: actions/checkout@v2
